@@ -1,2 +1,0 @@
-webpackJsonp([14],{FP3a:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r={render:function(){this.$createElement;this._self._c;return this._m(0)},staticRenderFns:[function(){var e=this.$createElement,t=this._self._c||e;return t("div",{attrs:{id:"home"}},[t("h1",[this._v("欢迎来到仓库管理系统")])])}]};var i=n("VU/8")({name:"home"},r,!1,function(e){n("d85a")},null,null);t.default=i.exports},d85a:function(e,t){}});
-//# sourceMappingURL=14.8124f1ca02f15b837926.js.map
