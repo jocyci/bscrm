@@ -75,6 +75,16 @@ export default class Apis {
     })
   }
 
+  @error('注册用户接口异常')
+  static registerNewManager (registerToken, params, loading) {
+    return axios({
+      url: `/api/user/${registerToken}/`,
+      data: params,
+      method: 'put',
+      loading: loading || false
+    })
+  }
+
   @error('获取初始数据接口异常')
   static getAfterLoginData (params, loading) {
     return ajax.get('/api/after_login/', params, loading)
@@ -98,11 +108,6 @@ export default class Apis {
   @error('新建管理员接口异常')
   static createNewManager (params, loading) {
     return ajax.post('/api/user/', params, loading)
-  }
-
-  @error('注册用户接口异常')
-  static registerNewManager (registerToken, params, loading) {
-    return ajax.put(`/api/user/${registerToken}/`, params, loading)
   }
 
   @error('搜索用户接口异常')

@@ -21,7 +21,7 @@ router.beforeEach((to, from, next) => {
   }
   if (token && to.path === '/login') {
     next({path: '/', replace: true})
-  } else if (!token && to.path !== '/login') {
+  } else if (!token && to.path !== '/login' && !/^\/register/.test(to.path)) {
     next({path: '/login', replace: true})
   } else {
     next()
