@@ -1,6 +1,7 @@
 import axios from 'axios'
 import loading from '@/common/js/loading'
 import {error} from './descriptor'
+import Util from '@/common/util'
 
 axios.interceptors.request.use(function (config) {
   loading.showLoading(config.loading)
@@ -15,6 +16,10 @@ axios.interceptors.response.use(function (response) {
   return response
 }, function (error) {
   loading.hideLoading()
+  if (error.response && error.response.status === 401) {
+    Util.clearCookie('token')
+    window.location = `${window.location.origin}/#/login`
+  }
   return Promise.reject(error)
 })
 
@@ -227,7 +232,7 @@ export default class Apis {
 
   @error('获取入库单详情接口异常')
   static getInboundDetail (id, loading) {
-    return ajax.get(`/api/inbound/${id}`, loading)
+    return ajax.get(`/api/inbound/${id}/`, loading)
   }
 
   @error('新增入库接口异常')
@@ -247,7 +252,7 @@ export default class Apis {
 
   @error('获取条码与商品id的映射接口异常')
   static getBarcodeMapping (params, loading) {
-    return ajax.get('/api/fba-barcode-mapping/', params, loading)
+    return ajax.get('/api/barcode-mapping/', params, loading)
   }
 
   @error('创建运单接口异常')
@@ -272,12 +277,12 @@ export default class Apis {
 
   @error('创建货件接口异常')
   static createNewFbashipment (id, params, loading) {
-    return ajax.post(`/api/fbashipment/?store_id=${id}`, params, loading)
+    return ajax.post(`/api/shipment/?store_id=${id}`, params, loading)
   }
 
   @error('更新货件接口异常')
   static updateFbashipment (shiId, id, params, loading) {
-    return ajax.put(`/api/fbashipment/${shiId}/?store_id=${id}`, params, loading)
+    return ajax.put(`/api/shipment/${shiId}/?store_id=${id}`, params, loading)
   }
 
   @error('搜索运单接口异常')
@@ -288,5 +293,40 @@ export default class Apis {
   @error('搜索运单接口异常')
   static getPackagePreview (id, loading) {
     return ajax.get(`/api/package-preview/${id}/`, null, loading)
+  }
+
+  @error('获取运单接口异常')
+  static getWaybill (loading) {
+    return ajax.get('/api/waybill/', null, loading)
+  }
+
+  @error('添加转运信息接口异常')
+  static addTransportInfo (id, params, loading) {
+    return ajax.post(`/api/track/?waybill_id=${id}`, params, loading)
+  }
+
+  @error('获取转运信息接口异常')
+  static getTransportInfo (id) {
+    return ajax.get(`/api/track/?waybill_id=${id}`, null, loading)
+  }
+
+  @error('取消亚马逊货件接口异常')
+  static deleteShipment (shipmentId, id, loading) {
+    return ajax.delete(`/api/shipment/${shipmentId}/?store_id=${id}`, null, loading)
+  }
+
+  @error('搜索商品信息接口异常')
+  static getStoreInfo (params, loading) {
+    return ajax.get(`/api/store-item/`, params, loading)
+  }
+
+  @error('获取运单详情接口异常')
+  static getWaybillById (id, loading) {
+    return ajax.get(`/api/waybill/${id}/`, null, loading)
+  }
+
+  @error('获取箱唛助手接口异常')
+  static getShipments (id, loading) {
+    return ajax.get(`/api/shipment-label-mapping/?shipment_id=${id}/`, null, loading)
   }
 }

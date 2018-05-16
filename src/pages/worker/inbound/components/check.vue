@@ -2,7 +2,7 @@
   <div>
     <div class="manage-box">
       <div class="cm-form">
-        <Input v-model="searchContent" placeholder="请输入用户名" clearable style="width: 120px"></Input>
+        <Input v-model="searchContent" placeholder="请输入入库单" clearable style="width: 120px"></Input>
         <Button type="primary" size="small" class="search" @click.native="searchAcion">搜索</Button>
       </div>
       <div class="cm-table" style="width: 40%">

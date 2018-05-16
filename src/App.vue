@@ -64,7 +64,7 @@ export default {
         let storeList = []
         this.username = Util.decodeBase64(Util.getCookie('username'))
         this.navLists = this.afterLoginGetter.view.map(item => {
-          item.icon = asideConfig[item.route].icon
+          item.icon = asideConfig[item.route] ? asideConfig[item.route].icon : 'clipboard'
           return item
         })
         this.afterLoginGetter.store_list.forEach((item) => {

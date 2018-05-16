@@ -6,7 +6,7 @@
         <Button type="primary" size="small" class="search" @click.native="searchUser">搜索</Button>
         <Button type="primary" size="small" class="new-opa" @click.native="openModel" v-if="role === 'admin'">新增</Button>
       </div>
-      <div class="cm-table users-table" :style="{width: role === 'root' ? '45%' : '35%'}">
+      <div class="cm-table users-table" :style="{width: role === 'root' ? '45%' : '45%'}">
         <Table border stripe :columns="columns" :data="lists"></Table>
       </div>
       <Modal
@@ -51,6 +51,11 @@ export default {
       }
     ]
     this.adminColumns = [
+      {
+        title: '姓名',
+        key: 'first_name',
+        width: 130
+      },
       {
         title: '用户名',
         key: 'username',

@@ -12,34 +12,34 @@
     </div>
     <Modal
       v-model="showModal"
-      title="新增亚马逊货件"
+      title="新增发货地址"
       :loading="modalLoading"
       @on-ok="ok"
       @on-cancel="cancel">
       <div class="shipment-modal">
         <div class="modal-item">
           <span class="vm">街道：</span>
-          <Input class="vm" v-model="AddressLine1" placeholder="只能添字母或数字" :maxlength="60" clearable style="width: 200px"></Input>
+          <Input class="vm" v-model="AddressLine1" placeholder="只能添字母、数字、下划线和空格" :maxlength="60" clearable style="width: 200px"></Input>
         </div>
         <div class="modal-item">
           <span class="vm">发货人：</span>
-          <Input class="vm" v-model="Name" placeholder="只能添字母或数字" :maxlength="60" clearable style="width: 200px"></Input>
+          <Input class="vm" v-model="Name" placeholder="只能添字母、数字、下划线和空格" :maxlength="60" clearable style="width: 200px"></Input>
         </div>
         <div class="modal-item">
           <span class="vm">城市：</span>
-          <Input class="vm" v-model="City" placeholder="只能添字母或数字" :maxlength="60" clearable style="width: 200px"></Input>
+          <Input class="vm" v-model="City" placeholder="只能添字母、数字、下划线和空格" :maxlength="60" clearable style="width: 200px"></Input>
         </div>
         <div class="modal-item">
           <span class="vm">省：</span>
-          <Input class="vm" v-model="StateOrProvinceCode" placeholder="只能添字母或数字" :maxlength="60" clearable style="width: 200px"></Input>
+          <Input class="vm" v-model="StateOrProvinceCode" placeholder="只能添字母、数字、下划线和空格" :maxlength="60" clearable style="width: 200px"></Input>
         </div>
         <div class="modal-item">
           <span class="vm">国家：</span>
-          <Input class="vm" v-model="CountryCode" placeholder="只能添字母或数字" :maxlength="60" clearable style="width: 200px"></Input>
+          <Input class="vm" v-model="CountryCode" placeholder="只能添字母、数字、下划线和空格" :maxlength="60" clearable style="width: 200px"></Input>
         </div>
         <div class="modal-item">
           <span class="vm">邮编：</span>
-          <Input class="vm" v-model="PostalCode" placeholder="只能添字母或数字" :maxlength="60" clearable style="width: 200px"></Input>
+          <Input class="vm" v-model="PostalCode" placeholder="只能添字母、数字、下划线和空格" :maxlength="60" clearable style="width: 200px"></Input>
         </div>
       </div>
     </Modal>
@@ -131,8 +131,8 @@ export default {
     },
     ok () {
       window.setTimeout(async () => {
-        const REG = /^[A-Za-z0-9]+$/
-        const STR = '字段不合法（只能添字母或数字）'
+        const REG = /^[A-Za-z0-9/_/\s]+$/
+        const STR = '字段不合法（只能添字母、数字、下划线和空格）'
         if (this.$requiredInVerify(this.AddressLine1, `街道${STR}`, REG) || this.$requiredInVerify(this.Name, `发货人${STR}`, REG) || this.$requiredInVerify(this.City, `城市${STR}`, REG) || this.$requiredInVerify(this.StateOrProvinceCode, `省${STR}`, REG) || this.$requiredInVerify(this.CountryCode, `国家${STR}`, REG) || this.$requiredInVerify(this.PostalCode, `邮编${STR}`, REG)) {
           this.modalLoadingAtion()
           return false

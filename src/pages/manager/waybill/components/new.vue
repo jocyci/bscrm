@@ -3,6 +3,7 @@
     <div class="manage-box">
       <div class="wn-add">
         <Button :disabled="!box_id_list.length" type="primary" class="new-opa" @click.native="openModel">新增</Button>
+        <Button type="primary" class="new-opa refresh" @click.native="refresh">刷新箱子</Button>
       </div>
       <div class="cm-table" style="width: 25%">
         <Table @on-selection-change="selectItem" border stripe :columns="columns" :data="lists"></Table>
@@ -69,6 +70,9 @@ export default {
   },
   methods: {
     ...mapActions(['getStoreId', 'fetchAfterLoginData']),
+    refresh () {
+      this.getOutboundId()
+    },
     async getOutboundId () {
       let response = await Apis.searchOutboundList({
         waybill_is_null: 1,
@@ -158,4 +162,7 @@ export default {
 </script>
 
 <style>
+.refresh {
+  margin-left: 5px;
+}
 </style>

@@ -76,6 +76,11 @@ export default new Router({
       component: resolve => require.ensure([], () => resolve(require('@/pages/manager/assert.vue')), 'assertControll-chunk')
     },
     {
+      path: '/store-item',
+      name: 'storeItemControll',
+      component: resolve => require.ensure([], () => resolve(require('@/pages/manager/storeItem.vue')), 'storeItemControll-chunk')
+    },
+    {
       path: '/waybill',
       name: 'waybillControll',
       component: resolve => require.ensure([], () => resolve(require('@/pages/manager/waybill/index')), 'waybillControll-chunk')

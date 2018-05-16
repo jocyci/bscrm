@@ -79,6 +79,9 @@ export default {
           key: 'img_url',
           render: (h, params) => {
             return h('img', {
+              style: {
+                width: '100%'
+              },
               attrs: {
                 src: params.row.img_url
               }

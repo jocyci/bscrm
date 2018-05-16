@@ -2,7 +2,7 @@
 
 const path = require('path')
 const DOMAIN = 'http://123.206.190.253:8000'
-// const DOMAIN = 'http://119.28.140.22:8000'
+// const DOMAIN = 'http://119.28.140.22:8080'
 
 module.exports = {
   dev: {
@@ -129,6 +129,10 @@ module.exports = {
       '/api/warehouse-inventory/': {
         target: DOMAIN,
         changeOrigin: true
+      },
+      '/api/*': {
+        target: DOMAIN,
+        changeOrigin: true
       }
     },
 
@@ -170,6 +174,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
+    // assetsPublicPath: 'http://msv3-1252068473.cossh.myqcloud.com/', // 配置静态文件的访问根目录地址
     assetsPublicPath: 'http://47.91.229.92/bsm/dist/', // 配置静态文件的访问根目录地址
 
     /**

@@ -33,6 +33,11 @@ export default {
           width: 160
         },
         {
+          title: '店铺sku',
+          key: 'skuname',
+          width: 160
+        },
+        {
           title: '图片',
           key: 'img_url',
           render: (h, params) => {

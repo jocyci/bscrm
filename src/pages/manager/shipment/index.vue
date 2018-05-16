@@ -1,10 +1,10 @@
 <template>
   <div>
     <Tabs :animated="false">
-      <TabPane label="管理亚马逊货件">
+      <TabPane label="管理发件地址">
         <standard></standard>
       </TabPane>
-      <TabPane label="创建/更新亚马逊货件">
+      <TabPane label="创建/更新货件">
         <creare-or-update></creare-or-update>
       </TabPane>
       <TabPane label="查询装箱单">

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="manage-box">
-      <div class="as-btn">
+      <!-- <div class="as-btn">
         <Upload :action="`/api/myi-file/?store_id=${storeId}`" @on-success="sucessLoad">
           <Button type="ghost" icon="ios-cloud-upload-outline">上传“管理亚马逊库存”报告文件</Button>
         </Upload>
@@ -25,7 +25,120 @@
         <Button type="primary" @click.native="download(`/api/amz-sku-mapping-file/?store_id=${storeId}`, `映射模板${storeName}.xls`)">
           下载"店铺-本地商品映射"模板
         </Button>
-      </div>
+      </div> -->
+    </div>
+    <div>
+    <div class="ivu-table-wrapper" style="width: 700px;">
+    <div class="ivu-table ivu-table-border">
+        <div class="ivu-table-header">
+            <table cellspacing="0" cellpadding="0" border="0" style="width: 700px;">
+                <colgroup>
+                    <col width="200">
+                    <col width="500">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th class="ivu-table-column-center">
+                            <div class="ivu-table-cell">
+                                <span class="">项目</span>
+                            </div>
+                        </th>
+                        <th class="ivu-table-column-center">
+                            <div class="ivu-table-cell">
+                                <span class="">操作</span>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="ivu-table-body">
+            <table cellspacing="0" cellpadding="0" border="0" style="width:700px;">
+                <colgroup>
+                    <col width="200">
+                    <col width="500">
+                </colgroup>
+                <tbody class="ivu-table-tbody">
+                    <tr class="ivu-table-row">
+                        <td class="ivu-table-column-center">
+                            <div class="ivu-table-cell">
+                                <span>本地仓库商品信息维护</span>
+                            </div>
+                        </td>
+                        <td class="ivu-table-column-center">
+                            <div class="ivu-table-cell">
+                              <div class="">
+                                  <div class="as-btn">
+                                    <Button type="primary" size="small" @click.native="download('/api/warehouse-sku-file/', `本地仓库商品信息维护.xls`)">
+                                      下载模板
+                                    </Button>
+                                  </div>
+                                  <div class="as-btn">
+                                    <Upload :action="`/api/warehouse-sku-file/`" @on-success="sucessLoad">
+                                      <Button type="warning" size="small">上传</Button>
+                                    </Upload>
+                                  </div>
+                              </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="ivu-table-row">
+                        <td class="ivu-table-column-center">
+                            <div class="ivu-table-cell">
+                                <span>FBA/海外仓商品信息维护</span>
+                            </div>
+                        </td>
+                        <td class="ivu-table-column-center">
+                            <div class="ivu-table-cell">
+                              <div class="">
+                                  <div class="as-btn">
+                                    <Button type="primary" size="small" @click.native="download(`/api/3rd-barcode-mapping-file/?store_id=${storeId}`, `海外仓.xls`)">
+                                      下载模板（海外仓）
+                                    </Button>
+                                  </div>
+                                  <div class="as-btn">
+                                    <Upload :action="`/api/3rd-barcode-mapping-file/?store_id=${storeId}`" :on-success="sucessLoadLa">
+                                      <Button type="warning" size="small">上传（海外仓）</Button>
+                                    </Upload>
+                                  </div>
+                                  <div class="as-btn">
+                                    <Upload :action="`/api/myi-file/?store_id=${storeId}`" :on-success="sucessLoadLa">
+                                      <Button type="warning" size="small">上传“管理亚马逊库存”报告文件</Button>
+                                    </Upload>
+                                  </div>
+                              </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="ivu-table-row">
+                        <td class="ivu-table-column-center">
+                            <div class="ivu-table-cell">
+                                <span>映射信息维护</span>
+                            </div>
+                        </td>
+                        <td class="ivu-table-column-center">
+                            <div class="ivu-table-cell">
+                              <div class="">
+                                  <div class="as-btn">
+                                    <Button type="primary"  size="small" @click.native="download(`/api/amz-sku-mapping-file/?store_id=${storeId}`, `映射模板${storeName}.xls`)">
+                                      下载模板
+                                    </Button>
+                                  </div>
+                                  <div class="as-btn">
+                                    <Upload :action="`/api/amz-sku-mapping-file/?store_id=${storeId}`">
+                                      <Button type="warning" size="small" icon="ios-cloud-upload-outline">上传</Button>
+                                    </Upload>
+                                  </div>
+                              </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        </div>
+          <object tabindex="-1" type="text/html" data="about:blank" style="display: block; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; border: none; padding: 0px; margin: 0px; opacity: 0; z-index: -1000; pointer-events: none;"></object>
+        </div>
     </div>
   </div>
 </template>
@@ -78,6 +191,13 @@ export default {
     },
     sucessLoad () {
       this.$Message.success('上传成功')
+    },
+    sucessLoadLa (response) {
+      if (!/^2/.test(response.status)) {
+        this.$Message.warning(response.msg)
+      } else {
+        this.$Message.success('上传成功')
+      }
     },
     download (url, name) {
       multiDownload([url], name)

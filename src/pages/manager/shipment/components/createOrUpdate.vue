@@ -4,10 +4,18 @@
       <div class="cm-form">
         <Button type="primary" :disabled="box_id_list.length <= 0"  @click.native="openModel(true)">新增</Button>
         <Button type="warning" class="mid-m" @click.native="openModel(false)">更新</Button>
+        <Button type="warning" :disabled="!ShipmentId" class="mid-m" @click.native="deleteShipment">取消</Button>
         <Input v-model="ShipmentId" placeholder="货件编号" clearable style="width: 500px"></Input>
       </div>
-      <div class="cm-table" style="width: 25%">
+      <div class="cm-table vm" style="width: 25%">
         <Table @on-selection-change="selectItem" border stripe :columns="columns" :data="lists"></Table>
+      </div>
+      <div class="refresh vm"><Button type="primary" @click.native="refresh">刷新</Button></div>
+      <div class="preview-btn vm"> <Button type="primary" :disabled="box_id_list.length <= 0" @click.native="getPackagePreview">预览</Button></div>
+      <div class="pr-table vm" style="width: 35%">
+        <div class="preview-table">
+          <Table border stripe :columns="preViewColumns" :data="preViewLists"></Table>
+        </div>
       </div>
       <Modal
         v-model="showModal"
@@ -22,11 +30,6 @@
           </Select>
         </div>
       </Modal>
-    </div>
-    <Button class="refresh" type="primary" @click.native="refresh">刷新</Button>
-    <Button class="preview-btn" type="primary" :disabled="box_id_list.length <= 0" @click.native="getPackagePreview">预览</Button>
-    <div class="preview-table" style="width: 35%">
-        <Table border stripe :columns="preViewColumns" :data="preViewLists"></Table>
     </div>
   </div>
 </template>
@@ -128,6 +131,14 @@ export default {
         this.addressList = response.data.msg
       }
     },
+    async deleteShipment () {
+      let response = await Apis.deleteShipment(this.ShipmentId, this.storeId, true)
+      if (/^2/.test(response.data.status)) {
+        this.$Message.success('取消成功')
+      } else {
+        this.$Message.error(response.data.msg)
+      }
+    },
     selectItem (selection) {
       let boxIdList = []
       selection.forEach((item) => {
@@ -198,6 +209,9 @@ export default {
 .cou-box {
   position: relative;
 }
+.cou-box .cm-table {
+  vertical-align: top!important;
+}
 .mid-m {
   margin: 0 10px;
 }
@@ -205,19 +219,21 @@ export default {
   width: 70px!important;
 }
 .refresh {
-  position: absolute;
-  top: 130px;
-  left: 27%;
+  vertical-align: top!important;
+  padding-top: 50px;
+  margin-left: 50px;
 }
 .preview-btn {
-  position: absolute;
-  top: 130px;
-  left: 33%;
+  vertical-align: top!important;
+  padding-top: 50px;
+  margin-left: 10px;
+}
+.pr-table {
+  vertical-align: top!important;
+  margin-left: 50px;
+  padding-top: 30px;
 }
 .preview-table {
-  position: absolute;
-  top: 98px;
-  left: 40%;
   border-style: dashed;
   border-width: 1px;
   border-color: #aaa;
